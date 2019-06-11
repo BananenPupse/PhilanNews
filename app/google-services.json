@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "793303963489",
+    "firebase_url": "https://philannews.firebaseio.com",
+    "project_id": "philannews",
+    "storage_bucket": "philannews.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793303963489:android:8669b07da00cddd6",
+        "android_client_info": {
+          "package_name": "de.kevin.philannews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793303963489-o3s416o8fsbt8k0jfb2rs8jrjr917n9t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.kevin.philannews",
+            "certificate_hash": "42d5bdcb57c40d1b7b3e9779ad47fe71445c6e5b"
+          }
+        },
+        {
+          "client_id": "793303963489-3o41g7liu6n1cq6e20dj2bii8dm55aac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAR__N3i1oHToQy6CXU99DuWUkDUSS6FA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793303963489-3o41g7liu6n1cq6e20dj2bii8dm55aac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

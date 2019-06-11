@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Philan News</string>
+    <string name="action_login">Einloggen</string>
+    <string name="password">Passwort</string>
+    <string name="username">Nutzername</string>
+    <string name="login">@string/action_login</string>
+    <string name="create_news_title">Titel</string>
+    <string name="create_news_link">Link</string>
+    <string name="create_news_content">Text</string>
+    <string name="credits_title" translatable="false">Philan News</string>
+    <string name="credits_author_text">Entwickelt von Kevin Voigt</string>
+    <string name="credits_for">für Philanthropinum Dessau-Roßlau</string>
+    <string name="credits_logo" translatable="false">Philanthropinum Logo</string>
+    <string name="change_password">Passwort ändern</string>
+    <string name="credits_credits" translatable="false">Credits</string>
+</resources>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AccountSettingsActivity"
+    tools:showIn="@layout/activity_account_settings">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="417dp"
+        android:layout_height="208dp"
+        app:cardBackgroundColor="#00CECECE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00686868">
+
+            <TextView
+                android:id="@+id/textChangePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/change_password"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.05" />
+
+            <EditText
+                android:id="@+id/newPassword"
+                android:layout_width="225dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="Neues Passwort"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/textChangePassword"
+                app:layout_constraintStart_toStartOf="@+id/textChangePassword"
+                app:layout_constraintTop_toBottomOf="@+id/textChangePassword" />
+
+            <EditText
+                android:id="@+id/newPasswordRetyped"
+                android:layout_width="225dp"
+                android:layout_height="45dp"
+                android:ems="10"
+                android:hint="Neues Passwort bestätigen"
+                android:inputType="textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/newPassword"
+                app:layout_constraintStart_toStartOf="@+id/newPassword"
+                app:layout_constraintTop_toBottomOf="@+id/newPassword" />
+
+            <Button
+                android:id="@+id/changePasswordButton"
+                android:layout_width="182dp"
+                android:layout_height="45dp"
+                android:text="Passwort ändern"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/newPasswordRetyped"
+                app:layout_constraintStart_toStartOf="@+id/newPasswordRetyped"
+                app:layout_constraintTop_toBottomOf="@+id/newPasswordRetyped" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Ausloggen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>

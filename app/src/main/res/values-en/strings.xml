@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Philan News</string>
+    <string name="create_news_title">Title</string>
+    <string name="create_news_content">Text</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="create_news_link">Link</string>
+    <string name="action_login">Login</string>
+    <string name="login">Log In</string>
+    <string name="credits_author_text">Coded by Kevin Voigt</string>
+    <string name="credits_for">for Philanthropinum Dessau-Roßlau</string>
+    <string name="change_password">Change Password</string>
+</resources>
