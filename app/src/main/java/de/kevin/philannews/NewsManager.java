@@ -12,7 +12,7 @@ public class NewsManager {
     public static String username = "";
     public static String password = "";
     public static String urlBase = "https://news.bau-pixel.net/philan/";
-//    public static String urlBase = "http://192.168.178.188/neu/news/";
+    //    public static String urlBase = "http://192.168.178.188/neu/news/";
     public static boolean validUser = false;
 
     /* public static boolean checkCredentials(String name, String unhashedPassword) {

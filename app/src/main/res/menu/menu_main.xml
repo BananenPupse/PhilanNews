@@ -12,10 +12,11 @@
       android:enabled="false"
       android:orderInCategory="101"
       android:title="Account" />
-  <item
-      android:id="@+id/action_settings"
-      android:orderInCategory="102"
-      android:title="Einstellungen" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="102"
+        android:title="Einstellungen"
+        android:visible="false" />
   <item
       android:id="@+id/action_credits"
       android:orderInCategory="103"

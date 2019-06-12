@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_philanlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".NewsViewActivity"></activity>
+        <activity android:name=".SettingsActivity" />
 
         <service
             android:name=".MyFirebaseMessagingService"

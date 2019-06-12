@@ -69,9 +69,12 @@ public class NewsAdapter extends BaseAdapter {
             return true;
         });
         holder.layout.setOnClickListener(v -> {
-            Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
-            openURL.setData(Uri.parse(_news.getLink()));
-            NewsActivity.getNewsActivity().startActivity(openURL);
+//            Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
+//            openURL.setData(Uri.parse(_news.getLink()));
+//            NewsActivity.getNewsActivity().startActivity(openURL);
+            Intent openNews = new Intent(NewsActivity.getNewsActivity(), NewsViewActivity.class);
+            openNews.setAction(_news.getLink());
+            NewsActivity.getNewsActivity().startActivity(openNews);
         });
 
 //        holder.button.setOnClickListener(v -> {

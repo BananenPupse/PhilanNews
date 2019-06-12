@@ -1,15 +1,8 @@
 package de.kevin.philannews;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.webkit.WebView;
 import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
