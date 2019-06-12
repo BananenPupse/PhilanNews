@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "793303963489-iqqa1guld41370sti3k9fu3ucpsoks6h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.kevin.philannews",
+            "certificate_hash": "b8bab4a3dca855861d1993749f5e266aa70839db"
+          }
+        },
+        {
           "client_id": "793303963489-o3s416o8fsbt8k0jfb2rs8jrjr917n9t.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

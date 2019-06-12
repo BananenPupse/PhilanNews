@@ -27,6 +27,7 @@ public class NewsManager {
     } */
 
     public static boolean checkCredentials(String name, String password) {
+        if (!isConnected()) return false;
         try {
             InputStream is = new URL(urlBase + "?validateUser&user=" + name + "&password=" + password).openStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -55,6 +56,7 @@ public class NewsManager {
     }
 
     public static void createNews(String title, String link, String content) {
+        if (!isConnected()) return;
         try {
             InputStream url = new URL(urlBase + "?createNews&user=" + username + "&password=" + password  + "&title=" + title + "&link=" + link + "&content=" + content).openStream();
             url.close();
@@ -64,6 +66,7 @@ public class NewsManager {
     }
 
     public static void editNews(String id, String title, String link, String content) {
+        if (!isConnected()) return;
         try {
             InputStream url = new URL(urlBase + "?editNews&user=" + username + "&password=" + password + "&id=" + id + "&title=" + title + "&link=" + link + "&content=" + content).openStream();
             url.close();
@@ -73,6 +76,7 @@ public class NewsManager {
     }
 
     public static void deleteNews(String id) {
+        if (!isConnected()) return;
         try {
             InputStream url = new URL(urlBase + "?deleteNews&user=" + username + "&password=" + password + "&id=" + id).openStream();
             url.close();
@@ -82,11 +86,20 @@ public class NewsManager {
     }
 
     public static void changePassword(String oldpassword, String password) {
+        if (!isConnected()) return;
         try {
             InputStream url = new URL(urlBase + "?changePassword&user=" + username + "&password=" + oldpassword + "&newpassword=" + password).openStream();
             url.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static boolean isConnected() {
+        try {
+            return Runtime.getRuntime().exec("ping -c 1 8.8.8.8").waitFor() == 0;
+        } catch (InterruptedException | IOException e) {
+            return false;
         }
     }
 }

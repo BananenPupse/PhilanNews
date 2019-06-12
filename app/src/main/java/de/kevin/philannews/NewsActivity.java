@@ -7,12 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gitonway.lee.niftymodaldialogeffects.lib.ColorUtils;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
@@ -57,8 +60,6 @@ public class NewsActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FirebaseMessaging.getInstance().subscribeToTopic("global");
-        NewsManager.refreshUser();
         FloatingActionButton fab = findViewById(R.id.createNewsFab);
         if (!NewsManager.validUser)
             fab.hide();
@@ -76,14 +77,12 @@ public class NewsActivity extends AppCompatActivity {
         intent.setAction("loadApp");
         startActivity(intent);
 
-        Executors.newSingleThreadScheduledExecutor().schedule(() -> {
-            SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
-            if (!preferences.contains("notify")) {
-                showNotifyDialog(preferences);
-            } else {
-                preferences.edit().remove("notify").apply();
-            }
-        }, 6, TimeUnit.SECONDS);
+        SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
+        if (!preferences.contains("notify")) {
+            showNotifyDialog(preferences);
+        } else {
+            updateSubscription(preferences);
+        }
     }
 
     private void refreshNews(View view) {
@@ -147,12 +146,16 @@ public class NewsActivity extends AppCompatActivity {
 
     public List<String[]> getNews() {
         List<String[]> news = new ArrayList<>();
+        if(!NewsManager.isConnected()) {
+            news.add(new String[]{"-1", "Oh nein!", "http://philan.de/news", "Es konnte keine Verbindung zum Server aufgebaut werden."});
+            return news;
+        }
         try {
             String sURL =  NewsManager.urlBase + "?newsjson";
             JSONObject json = readJsonFromUrl(sURL);
             JSONArray jsonArray = json.getJSONArray("news");
             if (jsonArray.length() == 0) {
-                news.add(new String[]{"-1", "Oh nein!", "https://philan.de/", "Es konnte keine Verbindung zum Server aufgebaut werden."});
+                news.add(new String[]{"-1", "Oh nein!", "http://philan.de/news", "Es konnte keine Verbindung zum Server aufgebaut werden."});
             }
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONArray array = jsonArray.getJSONArray(i);
@@ -190,15 +193,25 @@ public class NewsActivity extends AppCompatActivity {
         builder.withTitle("Benachrichtigungen").withMessage("Möchtest du bei neuen News benachrichtigt werden?").withButton1Text("Ja").withButton2Text("Nein");
         builder.withDialogColor(Color.GRAY);
         builder.isCancelable(false);
-        builder.withEffect(Effectstype.Newspager);
         builder.setButton1Click(v -> {
             preferences.edit().putBoolean("notify", true).apply();
             builder.dismiss();
+            Toast.makeText(this, "Du möchtest bei neuen News benachrichtigt werden :)", Toast.LENGTH_LONG).show();
+            updateSubscription(getSharedPreferences("settings", MODE_PRIVATE));
         });
         builder.setButton2Click(v -> {
             preferences.edit().putBoolean("notify", false).apply();
             builder.dismiss();
+            Toast.makeText(this, "Du möchtest bei neuen News nicht benachrichtigt werden :(", Toast.LENGTH_LONG).show();
+            updateSubscription(getSharedPreferences("settings", MODE_PRIVATE));
         });
         builder.show();
+    }
+
+    public void updateSubscription(SharedPreferences preferences) {
+        if (preferences.getBoolean("notify", false))
+            FirebaseMessaging.getInstance().subscribeToTopic("global");
+        else
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("global");
     }
 }
