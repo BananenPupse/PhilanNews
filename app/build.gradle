@@ -18,7 +18,7 @@ android {
         //noinspection OldTargetApi
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
     }
@@ -28,6 +28,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             multiDexEnabled = true
+            debuggable true
         }
         debug {
             signingConfig signingConfigs.debug

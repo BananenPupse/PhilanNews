@@ -153,15 +153,22 @@ public class NewsActivity extends AppCompatActivity {
         try {
             String sURL =  NewsManager.urlBase + "?newsjson";
             JSONObject json = readJsonFromUrl(sURL);
+            if (json == null) throw new NullPointerException("Fehler bei der JSONFetchOperation! JSONObject json is NULL!");
             JSONArray jsonArray = json.getJSONArray("news");
-            if (jsonArray.length() == 0) {
-                news.add(new String[]{"-1", "Oh nein!", "http://philan.de/news", "Es konnte keine Verbindung zum Server aufgebaut werden."});
+            if (jsonArray == null) throw new NullPointerException("Fehler bei der JSONFetchOperation! JSONArray jsonArray is NULL!");
+            if (jsonArray.length() == 1) {
+                throw new JSONException("Fehler bei der JSONFetchOperation! (List<String[]> getNews())");
             }
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONArray array = jsonArray.getJSONArray(i);
                 news.add(new String[]{array.getString(0), array.getString(1), array.getString(2), array.getString(3).replace("%nl%", "\r\n")});
             }
-        } catch (IOException | JSONException e) {
+        } catch (IOException | JSONException | NullPointerException e) {
+            if (e.getMessage().contains("JSONFetchOperation")) {
+                System.err.println("JSONFetchOperation fehler!");
+                news.add(new String[]{"-1", "Fehler beim News lesen", "http://philan.de/news", "Bitte melde dich bei Kevin Voigt (Homepage AG)"});
+            } else
+                news.add(new String[]{"-1", "Schade, noch keine News", "http://philan.de/news", "Es wurden noch keine News erstellt!"});
             e.printStackTrace();
         }
         return news;
