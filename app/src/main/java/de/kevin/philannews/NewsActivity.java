@@ -156,7 +156,7 @@ public class NewsActivity extends AppCompatActivity {
             if (json == null) throw new NullPointerException("Fehler bei der JSONFetchOperation! JSONObject json is NULL!");
             JSONArray jsonArray = json.getJSONArray("news");
             if (jsonArray == null) throw new NullPointerException("Fehler bei der JSONFetchOperation! JSONArray jsonArray is NULL!");
-            if (jsonArray.length() == 1) {
+            if (jsonArray.length() == 0) {
                 throw new JSONException("Fehler bei der JSONFetchOperation! (List<String[]> getNews())");
             }
             for (int i = 0; i < jsonArray.length(); i++) {
