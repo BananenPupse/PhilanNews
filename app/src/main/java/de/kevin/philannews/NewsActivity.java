@@ -135,11 +135,11 @@ public class NewsActivity extends AppCompatActivity {
             List<NewsAdapter.News> news = new ArrayList<>();
             for (String[] strs : getNews())
                 news.add(new NewsAdapter.News(strs[0], strs[1], strs[2], strs[3]));
-            listView.setOnItemClickListener((parent, view, position, id) -> {
-                Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
-                openURL.setData(Uri.parse(news.get(position).getLink()));
-                startActivity(openURL);
-            });
+//            listView.setOnItemClickListener((parent, view, position, id) -> {
+//                Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
+//                openURL.setData(Uri.parse(news.get(position).getLink()));
+//                startActivity(openURL);
+//            });
             listView.setAdapter(new NewsAdapter(this, news));
         }).run();
     }
@@ -147,7 +147,7 @@ public class NewsActivity extends AppCompatActivity {
     public List<String[]> getNews() {
         List<String[]> news = new ArrayList<>();
         if(!NewsManager.isConnected()) {
-            news.add(new String[]{"-1", "Oh nein!", "http://philan.de/news", "Es konnte keine Verbindung zum Server aufgebaut werden."});
+            news.add(new String[]{"-1", "Oh nein!", "http://philan.de/news", "Es konnte keine Verbindung zum Server aufgebaut werden.\nÜberprüfe deine Verbindung!"});
             return news;
         }
         try {

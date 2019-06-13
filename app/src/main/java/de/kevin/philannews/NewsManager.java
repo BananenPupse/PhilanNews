@@ -57,16 +57,19 @@ public class NewsManager {
 
     public static void createNews(String title, String link, String content) {
         if (!isConnected()) return;
+        if (!validUser) return;
         try {
             InputStream url = new URL(urlBase + "?createNews&user=" + username + "&password=" + password  + "&title=" + title + "&link=" + link + "&content=" + content).openStream();
             url.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        sendNotifications();
     }
 
     public static void editNews(String id, String title, String link, String content) {
         if (!isConnected()) return;
+        if (!validUser) return;
         try {
             InputStream url = new URL(urlBase + "?editNews&user=" + username + "&password=" + password + "&id=" + id + "&title=" + title + "&link=" + link + "&content=" + content).openStream();
             url.close();
@@ -77,6 +80,7 @@ public class NewsManager {
 
     public static void deleteNews(String id) {
         if (!isConnected()) return;
+        if (!validUser) return;
         try {
             InputStream url = new URL(urlBase + "?deleteNews&user=" + username + "&password=" + password + "&id=" + id).openStream();
             url.close();
@@ -87,6 +91,7 @@ public class NewsManager {
 
     public static void changePassword(String oldpassword, String password) {
         if (!isConnected()) return;
+        if (!validUser) return;
         try {
             InputStream url = new URL(urlBase + "?changePassword&user=" + username + "&password=" + oldpassword + "&newpassword=" + password).openStream();
             url.close();
@@ -102,4 +107,5 @@ public class NewsManager {
             return false;
         }
     }
+
 }
