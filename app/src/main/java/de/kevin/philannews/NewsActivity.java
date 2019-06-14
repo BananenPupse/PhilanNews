@@ -3,22 +3,17 @@ package de.kevin.philannews;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.gitonway.lee.niftymodaldialogeffects.lib.ColorUtils;
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -35,8 +30,6 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class NewsActivity extends AppCompatActivity {
 
@@ -86,6 +79,7 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     private void refreshNews(View view) {
+        view.getId();
         refreshNews();
     }
 
@@ -130,7 +124,7 @@ public class NewsActivity extends AppCompatActivity {
 
     public void refreshNews() {
         NewsManager.refreshUser();
-        ((Runnable) () -> {
+        {
             ListView listView = findViewById(R.id.listView);
             List<NewsAdapter.News> news = new ArrayList<>();
             for (String[] strs : getNews())
@@ -141,19 +135,18 @@ public class NewsActivity extends AppCompatActivity {
 //                startActivity(openURL);
 //            });
             listView.setAdapter(new NewsAdapter(this, news));
-        }).run();
+        }
     }
 
     public List<String[]> getNews() {
         List<String[]> news = new ArrayList<>();
-        if(!NewsManager.isConnected()) {
+        if(NewsManager.isDisconnected()) {
             news.add(new String[]{"-1", "Oh nein!", "http://philan.de/news", "Es konnte keine Verbindung zum Server aufgebaut werden.\nÜberprüfe deine Verbindung!"});
             return news;
         }
         try {
             String sURL =  NewsManager.urlBase + "?newsjson";
             JSONObject json = readJsonFromUrl(sURL);
-            if (json == null) throw new NullPointerException("Fehler bei der JSONFetchOperation! JSONObject json is NULL!");
             JSONArray jsonArray = json.getJSONArray("news");
             if (jsonArray == null) throw new NullPointerException("Fehler bei der JSONFetchOperation! JSONArray jsonArray is NULL!");
             if (jsonArray.length() == 0) {
@@ -184,14 +177,10 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
+        try (InputStream is = new URL(url).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
+            return new JSONObject(jsonText);
         }
     }
 

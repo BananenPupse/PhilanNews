@@ -1,13 +1,12 @@
 package de.kevin.philannews;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,7 +18,7 @@ public class NewsAdapter extends BaseAdapter {
     private List<News> news;
     private LayoutInflater layoutInflater;
 
-    public NewsAdapter(Context context, List<News> news) {
+    NewsAdapter(Context context, List<News> news) {
         this.news = news;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -39,6 +38,7 @@ public class NewsAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("InflateParams")
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
@@ -98,7 +98,7 @@ public class NewsAdapter extends BaseAdapter {
         String content;
         String id;
 
-        public News(String id, String title, String link, String content) {
+        News(String id, String title, String link, String content) {
             this.id = id;
             this.title = title;
             this.link = link;
@@ -109,15 +109,15 @@ public class NewsAdapter extends BaseAdapter {
             return id;
         }
 
-        public String getTitle() {
+        String getTitle() {
             return title;
         }
 
-        public String getLink() {
+        String getLink() {
             return link;
         }
 
-        public String getContent() {
+        String getContent() {
             return content;
         }
     }

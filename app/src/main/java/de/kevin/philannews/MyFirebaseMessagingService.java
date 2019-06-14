@@ -1,14 +1,6 @@
 package de.kevin.philannews;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -81,19 +73,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
-        sendRegistrationToServer(token);
+        sendRegistrationToServer();
     }
     // [END on_new_token]
 
-    private void scheduleJob() {
-    }
+//    private void scheduleJob() {
+//    }
 
-    /**
-     * Handle time allotted to BroadcastReceivers.
-     */
-    private void handleNow() {
-        Log.d(TAG, "Short lived task is done.");
-    }
+//    private void handleNow() {
+//        Log.d(TAG, "Short lived task is done.");
+//    }
 
     /**
      * Persist token to third-party servers.
@@ -101,9 +90,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * Modify this method to associate the user's FCM InstanceID token with any server-side account
      * maintained by your application.
      *
-     * @param token The new token.
      */
-    private void sendRegistrationToServer(String token) {
+    private void sendRegistrationToServer() {
         // TODO: Implement this method to send token to your app server.
     }
 
