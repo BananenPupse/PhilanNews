@@ -129,7 +129,6 @@ class NewsManager {
     }
 
     static void changeNickname(String nick) {
-        if (isDisconnected()) return;
         if (!isValidUser()) return;
         try {
             InputStream url = new URL(urlBase + "?setNickname&user=" + username + "&nickname=" + nick).openStream();
@@ -137,6 +136,7 @@ class NewsManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        refreshUser();
     }
 
 }

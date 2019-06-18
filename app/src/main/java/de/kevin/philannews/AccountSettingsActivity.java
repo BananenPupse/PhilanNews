@@ -21,6 +21,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        NewsManager.refreshUser();
         EditText password = findViewById(R.id.newTitle);
         EditText passwordRetyped = findViewById(R.id.newPasswordRetyped);
         EditText nickname = findViewById(R.id.settingsNewNickname);
@@ -61,17 +62,20 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (nickname.getText().toString().length() < 4) {
+                if (nickname.getText().toString().length() < 3) {
                     nickname.setError("Der Nickname muss mindestens 3 Zeichen betragen!");
-                    nickname.setEnabled(false);
+                    changeNickname.setEnabled(false);
                     return;
                 }
-                nickname.setEnabled(true);
+                changeNickname.setEnabled(true);
             }
         };
         password.addTextChangedListener(textWatcher);
         passwordRetyped.addTextChangedListener(textWatcher);
+        nickname.addTextChangedListener(textWatcher1);
         nickname.setHint(NewsManager.nickname);
+        changeNickname.setEnabled(false);
+        changePassword.setEnabled(false);
 
         changePassword.setOnClickListener(v -> {
             if (NewsManager.refreshUser()) {
