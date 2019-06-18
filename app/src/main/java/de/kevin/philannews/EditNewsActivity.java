@@ -9,12 +9,12 @@ import android.widget.EditText;
 
 public class EditNewsActivity extends AppCompatActivity {
 
-    public static String ID, TITLE, LINK, CONTENT;
+    public static String ID, TITLE, SUMMARY, CONTENT;
 
-    public static void setData(String id, String title, String link, String content) {
+    public static void setData(String id, String title, String summary, String content) {
         EditNewsActivity.ID = id;
         EditNewsActivity.TITLE = title;
-        EditNewsActivity.LINK  = link;
+        EditNewsActivity.SUMMARY = summary;
         EditNewsActivity.CONTENT = content;
     }
 
@@ -23,10 +23,10 @@ public class EditNewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_news);
         EditText title = findViewById(R.id.editTitle);
-        EditText link = findViewById(R.id.editLink);
+        EditText summary = findViewById(R.id.editSummary);
         EditText content = findViewById(R.id.editContent);
         title.setText(TITLE);
-        link.setText(LINK);
+        summary.setText(SUMMARY);
         content.setText(CONTENT);
         Button editNews = findViewById(R.id.editNewsButton);
         Button deleteNews = findViewById(R.id.buttonDelete);
@@ -38,7 +38,7 @@ public class EditNewsActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (title.getText().toString().isEmpty() || link.getText().toString().isEmpty() || content.getText().toString().isEmpty()) {
+                if (title.getText().toString().isEmpty() || content.getText().toString().isEmpty()) {
                     editNews.setEnabled(false);
                 } else {
                     editNews.setEnabled(true);
@@ -46,7 +46,6 @@ public class EditNewsActivity extends AppCompatActivity {
             }
         };
         title.addTextChangedListener(textWatcher);
-        link.addTextChangedListener(textWatcher);
         content.addTextChangedListener(textWatcher);
 
         editNews.setOnClickListener(v -> {
@@ -54,7 +53,7 @@ public class EditNewsActivity extends AppCompatActivity {
                 finish();
                 return;
             }
-            NewsManager.editNews(ID, title.getText().toString(), link.getText().toString(), content.getText().toString().replace("\r\n", "%nl%").replace("\n", "%nl%").replace("\r", ""));
+            NewsManager.editNews(ID, title.getText().toString(), summary.getText().toString().isEmpty() ? "NULL" : summary.getText().toString(), content.getText().toString().replace("\r\n", "%nl%").replace("\n", "%nl%").replace("\r", ""));
             finish();
         });
 

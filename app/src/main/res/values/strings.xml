@@ -5,7 +5,7 @@
     <string name="username">Nutzername</string>
     <string name="login">@string/action_login</string>
     <string name="create_news_title">Titel</string>
-    <string name="create_news_link">Link</string>
+    <string name="create_news_summary">Zusammenfassung</string>
     <string name="create_news_content">Text</string>
     <string name="credits_title" translatable="false">Philan News</string>
     <string name="credits_author_text">Entwickelt von Kevin Voigt</string>

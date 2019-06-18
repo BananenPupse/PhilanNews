@@ -13,8 +13,8 @@ public class CreateNewsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_news);
-        EditText title = findViewById(R.id.newPassword);
-        EditText link = findViewById(R.id.newLink);
+        EditText title = findViewById(R.id.newTitle);
+        EditText summary = findViewById(R.id.newSummary);
         EditText content = findViewById(R.id.newContent);
         Button newNews = findViewById(R.id.newButton);
         TextWatcher textWatcher = new TextWatcher() {
@@ -25,7 +25,7 @@ public class CreateNewsActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (title.getText().toString().isEmpty() || link.getText().toString().isEmpty() || content.getText().toString().isEmpty()) {
+                if (title.getText().toString().isEmpty() || content.getText().toString().isEmpty()) {
                     newNews.setEnabled(false);
                 } else {
                     newNews.setEnabled(true);
@@ -33,7 +33,6 @@ public class CreateNewsActivity extends AppCompatActivity {
             }
         };
         title.addTextChangedListener(textWatcher);
-        link.addTextChangedListener(textWatcher);
         content.addTextChangedListener(textWatcher);
 
         newNews.setOnClickListener(v -> {
@@ -41,7 +40,7 @@ public class CreateNewsActivity extends AppCompatActivity {
                 finish();
                 return;
             }
-            NewsManager.createNews(title.getText().toString(), link.getText().toString(), content.getText().toString().replace("\r\n", "%nl%").replace("\n", "%nl%").replace("\r", ""));
+            NewsManager.createNews(title.getText().toString(), summary.getText().toString(), content.getText().toString().replace("\r\n", "%nl%").replace("\n", "%nl%").replace("\r", ""));
             finish();
         });
     }

@@ -26,12 +26,12 @@
         app:layout_constraintVertical_bias="0.13999999" />
 
     <EditText
-        android:id="@+id/editLink"
+        android:id="@+id/editSummary"
         android:layout_width="354dp"
         android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/create_news_link"
+        android:hint="@string/create_news_summary"
         android:inputType="textLongMessage|textAutoComplete"
         app:layout_constraintEnd_toEndOf="@+id/editTitle"
         app:layout_constraintStart_toStartOf="@+id/editTitle"
@@ -45,9 +45,9 @@
         android:ems="10"
         android:hint="@string/create_news_content"
         android:inputType="textLongMessage|textMultiLine|textImeMultiLine"
-        app:layout_constraintEnd_toEndOf="@+id/editLink"
-        app:layout_constraintStart_toStartOf="@+id/editLink"
-        app:layout_constraintTop_toBottomOf="@+id/editLink" />
+        app:layout_constraintEnd_toEndOf="@+id/editSummary"
+        app:layout_constraintStart_toStartOf="@+id/editSummary"
+        app:layout_constraintTop_toBottomOf="@+id/editSummary" />
 
     <Button
         android:id="@+id/editNewsButton"

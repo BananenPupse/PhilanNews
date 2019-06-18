@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_account_settings">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="417dp"
         android:layout_height="208dp"
         app:cardBackgroundColor="#00CECECE"
@@ -38,7 +39,7 @@
                 app:layout_constraintVertical_bias="0.05" />
 
             <EditText
-                android:id="@+id/newPassword"
+                android:id="@+id/newTitle"
                 android:layout_width="225dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="8dp"
@@ -57,9 +58,9 @@
                 android:ems="10"
                 android:hint="Neues Passwort bestätigen"
                 android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="@+id/newPassword"
-                app:layout_constraintStart_toStartOf="@+id/newPassword"
-                app:layout_constraintTop_toBottomOf="@+id/newPassword" />
+                app:layout_constraintEnd_toEndOf="@+id/newTitle"
+                app:layout_constraintStart_toStartOf="@+id/newTitle"
+                app:layout_constraintTop_toBottomOf="@+id/newTitle" />
 
             <Button
                 android:id="@+id/changePasswordButton"
@@ -82,4 +83,55 @@
         android:text="Ausloggen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="417dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#00CECECE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView2">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00686868">
+
+            <TextView
+                android:id="@+id/settingsChangeNicknameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Ändere deinen Nicknamen"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/settingsNewNickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/settingsChangeNicknameText"
+                app:layout_constraintStart_toStartOf="@+id/settingsChangeNicknameText"
+                app:layout_constraintTop_toBottomOf="@+id/settingsChangeNicknameText" />
+
+            <Button
+                android:id="@+id/settingsChangeNickButton"
+                android:layout_width="182dp"
+                android:layout_height="45dp"
+                android:text="Nickname ändern"
+                app:layout_constraintEnd_toEndOf="@+id/settingsNewNickname"
+                app:layout_constraintStart_toStartOf="@+id/settingsNewNickname"
+                app:layout_constraintTop_toBottomOf="@+id/settingsNewNickname" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
 </android.support.constraint.ConstraintLayout>

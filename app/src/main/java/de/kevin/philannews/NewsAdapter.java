@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 public class NewsAdapter extends BaseAdapter {
@@ -47,8 +48,7 @@ public class NewsAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.titleView = convertView.findViewById(R.id.textTitle);
             holder.contentView = convertView.findViewById(R.id.textContent);
-            holder.button = convertView.findViewById(R.id.buttonShow);
-            holder.editButton = convertView.findViewById(R.id.buttonEdit);
+            holder.date = convertView.findViewById(R.id.textDate);
             holder.layout = convertView.findViewById(R.id.list_item_layout);
             convertView.setTag(holder);
         } else {
@@ -58,51 +58,36 @@ public class NewsAdapter extends BaseAdapter {
         holder.layout.setLongClickable(true);
         News _news = news.get(position);
         holder.titleView.setText(_news.getTitle());
-        holder.contentView.setText(_news.getContent());
-        holder.button.setVisibility(View.GONE);
-        holder.editButton.setVisibility(View.GONE);
+        holder.contentView.setText(_news.getSummary());
+        holder.date.setText(_news.getDate());
 
         if (NewsManager.validUser) holder.layout.setOnLongClickListener(v -> {
             Intent editNews = new Intent(NewsActivity.getNewsActivity(), EditNewsActivity.class);
-            EditNewsActivity.setData(_news.getId(), _news.getTitle(), _news.getLink(), _news.getContent());
+            EditNewsActivity.setData(_news.getId(), _news.getTitle(), _news.getSummary(), _news.getContent());
             NewsActivity.getNewsActivity().startActivity(editNews);
             return true;
         });
         holder.layout.setOnClickListener(v -> {
-//            Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
-//            openURL.setData(Uri.parse(_news.getLink()));
-//            NewsActivity.getNewsActivity().startActivity(openURL);
             Intent openNews = new Intent(NewsActivity.getNewsActivity(), NewsViewActivity.class);
-            openNews.setAction(_news.getLink());
+            openNews.putExtra("title", _news.getTitle());
+            openNews.putExtra("content", _news.getContent());
+            openNews.putExtra("author", _news.getAuthor());
+            openNews.putExtra("date", _news.getDate());
             NewsActivity.getNewsActivity().startActivity(openNews);
         });
-
-//        holder.button.setOnClickListener(v -> {
-//            Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
-//            openURL.setData(Uri.parse(_news.getLink()));
-//            NewsActivity.getNewsActivity().startActivity(openURL);
-//        });
-
-//        holder.editButton.setOnClickListener(v -> {
-//            Intent editNews = new Intent(NewsActivity.getNewsActivity(), EditNewsActivity.class);
-//            EditNewsActivity.setData(_news.getId(), _news.getTitle(), _news.getLink(), _news.getContent());
-//            NewsActivity.getNewsActivity().startActivity(editNews);
-//        });
-
         return convertView;
     }
 
     public static class News {
-        String title;
-        String link;
-        String content;
-        String id;
+        String title, summary, content, id, author, date;
 
-        News(String id, String title, String link, String content) {
+        News(String id, String title, String summary, String content, String author, String date) {
             this.id = id;
             this.title = title;
-            this.link = link;
+            this.summary = summary;
             this.content = content;
+            this.author = author;
+            this.date = date;
         }
 
         public String getId() {
@@ -113,8 +98,16 @@ public class NewsAdapter extends BaseAdapter {
             return title;
         }
 
-        String getLink() {
-            return link;
+        String getSummary() {
+            return summary;
+        }
+
+        String getAuthor() {
+            return author;
+        }
+
+        String getDate() {
+            return date;
         }
 
         String getContent() {
@@ -125,8 +118,7 @@ public class NewsAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView titleView;
         TextView contentView;
-        Button button;
-        Button editButton;
+        TextView date;
         ConstraintLayout layout;
     }
 }

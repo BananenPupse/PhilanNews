@@ -58,6 +58,7 @@ public class LogInActivity extends AppCompatActivity {
                 account.setEnabled(true);
                 login.setEnabled(false);
                 NewsActivity.getNewsActivity().refreshNews();
+                NewsManager.refreshUser();
                 finish();
             } else
                 Snackbar.make(v, "Falsche Login-Daten", Snackbar.LENGTH_LONG).setAction("Action", null).show();

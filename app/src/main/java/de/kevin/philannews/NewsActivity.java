@@ -128,12 +128,7 @@ public class NewsActivity extends AppCompatActivity {
             ListView listView = findViewById(R.id.listView);
             List<NewsAdapter.News> news = new ArrayList<>();
             for (String[] strs : getNews())
-                news.add(new NewsAdapter.News(strs[0], strs[1], strs[2], strs[3]));
-//            listView.setOnItemClickListener((parent, view, position, id) -> {
-//                Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
-//                openURL.setData(Uri.parse(news.get(position).getLink()));
-//                startActivity(openURL);
-//            });
+                news.add(new NewsAdapter.News(strs[0], strs[1], strs[2], strs[3], strs[4], strs[5]));
             listView.setAdapter(new NewsAdapter(this, news));
         }
     }
@@ -141,7 +136,7 @@ public class NewsActivity extends AppCompatActivity {
     public List<String[]> getNews() {
         List<String[]> news = new ArrayList<>();
         if(NewsManager.isDisconnected()) {
-            news.add(new String[]{"-1", "Oh nein!", "http://philan.de/news", "Es konnte keine Verbindung zum Server aufgebaut werden.\nÜberprüfe deine Verbindung!"});
+            news.add(new String[]{"-1", "Oh nein!", "Klicke um Infos zu sehen", "Es konnte keine Verbindung zum Server aufgebaut werden.\nÜberprüfe deine Verbindung!", "Philan News", " vor 0 Sekunden"});
             return news;
         }
         try {
@@ -154,14 +149,14 @@ public class NewsActivity extends AppCompatActivity {
             }
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONArray array = jsonArray.getJSONArray(i);
-                news.add(new String[]{array.getString(0), array.getString(1), array.getString(2), array.getString(3).replace("%nl%", "\r\n")});
+                news.add(new String[]{array.getString(0), array.getString(1), array.getString(2).replace("%nl%", "\r\n"), array.getString(3).replace("%nl%", "\r\n"), array.getString(4), array.getString(5)});
             }
         } catch (IOException | JSONException | NullPointerException e) {
             if (e.getMessage().contains("JSONFetchOperation")) {
                 System.err.println("JSONFetchOperation fehler!");
-                news.add(new String[]{"-1", "Fehler beim News lesen", "http://philan.de/news", "Bitte melde dich bei Kevin Voigt (Homepage AG)"});
+                news.add(new String[]{"-1", "Fehler beim News lesen", "Klicke um Infos zu sehen", "Bitte melde dich bei Kevin Voigt (Homepage AG)", "Philan News", " vor 0 Sekunden"});
             } else
-                news.add(new String[]{"-1", "Schade, noch keine News", "http://philan.de/news", "Es wurden noch keine News erstellt!"});
+                news.add(new String[]{"-1", "Schade, noch keine News", "Klicke um Infos zu sehen", "Es wurden noch keine News erstellt!", "Philan News", " vor 0 Sekunden"});
             e.printStackTrace();
         }
         return news;

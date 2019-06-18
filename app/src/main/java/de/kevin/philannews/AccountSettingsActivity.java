@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AccountSettingsActivity extends AppCompatActivity {
 
@@ -20,9 +21,11 @@ public class AccountSettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        EditText password = findViewById(R.id.newPassword);
+        EditText password = findViewById(R.id.newTitle);
         EditText passwordRetyped = findViewById(R.id.newPasswordRetyped);
+        EditText nickname = findViewById(R.id.settingsNewNickname);
         Button changePassword = findViewById(R.id.changePasswordButton);
+        Button changeNickname = findViewById(R.id.settingsChangeNickButton);
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -47,8 +50,28 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 changePassword.setEnabled(true);
             }
         };
+        TextWatcher textWatcher1 = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (nickname.getText().toString().length() < 4) {
+                    nickname.setError("Der Nickname muss mindestens 3 Zeichen betragen!");
+                    nickname.setEnabled(false);
+                    return;
+                }
+                nickname.setEnabled(true);
+            }
+        };
         password.addTextChangedListener(textWatcher);
         passwordRetyped.addTextChangedListener(textWatcher);
+        nickname.setHint(NewsManager.nickname);
 
         changePassword.setOnClickListener(v -> {
             if (NewsManager.refreshUser()) {
@@ -56,6 +79,14 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 NewsManager.password = password.getText().toString();
                 NewsManager.changePassword(oldpassword, password.getText().toString());
                 finish();
+            }
+        });
+
+        changeNickname.setOnClickListener(v -> {
+            if (NewsManager.refreshUser()) {
+                NewsManager.changeNickname(nickname.getText().toString());
+                finish();
+                Toast.makeText(NewsActivity.getNewsActivity(), "Dein Nickname wurde aktualisiert.", Toast.LENGTH_LONG).show();
             }
         });
 

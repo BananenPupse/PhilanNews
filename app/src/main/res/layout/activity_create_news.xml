@@ -7,7 +7,7 @@
     tools:context=".CreateNewsActivity" >
 
   <EditText
-      android:id="@+id/newPassword"
+      android:id="@+id/newTitle"
       android:layout_width="354dp"
       android:layout_height="46dp"
       android:layout_marginStart="8dp"
@@ -22,17 +22,17 @@
       app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/newLink"
+        android:id="@+id/newSummary"
         android:layout_width="354dp"
         android:layout_height="46dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/create_news_link"
+        android:hint="@string/create_news_summary"
         android:inputType="textLongMessage|textAutoComplete"
-        app:layout_constraintEnd_toEndOf="@+id/newPassword"
+        app:layout_constraintEnd_toEndOf="@+id/newTitle"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/newPassword"
-        app:layout_constraintTop_toBottomOf="@+id/newPassword" />
+        app:layout_constraintStart_toStartOf="@+id/newTitle"
+        app:layout_constraintTop_toBottomOf="@+id/newTitle" />
 
     <EditText
         android:id="@+id/newContent"
@@ -44,10 +44,10 @@
         android:ems="10"
         android:hint="@string/create_news_content"
         android:inputType="textLongMessage|textMultiLine|textImeMultiLine"
-        app:layout_constraintEnd_toEndOf="@id/newLink"
+        app:layout_constraintEnd_toEndOf="@id/newSummary"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/newLink"
-        app:layout_constraintTop_toBottomOf="@+id/newLink" />
+        app:layout_constraintStart_toStartOf="@id/newSummary"
+        app:layout_constraintTop_toBottomOf="@+id/newSummary" />
 
     <Button
         android:id="@+id/newButton"
