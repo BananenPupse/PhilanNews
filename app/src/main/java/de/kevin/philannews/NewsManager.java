@@ -131,7 +131,7 @@ class NewsManager {
     static void changeNickname(String nick) {
         if (!isValidUser()) return;
         try {
-            InputStream url = new URL(urlBase + "?setNickname&user=" + username + "&nickname=" + nick).openStream();
+            InputStream url = new URL(urlBase + "?setNickname&user=" + username + "&password=" + password + "&nickname=" + nick).openStream();
             url.close();
         } catch (IOException e) {
             e.printStackTrace();
