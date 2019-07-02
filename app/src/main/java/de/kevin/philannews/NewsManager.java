@@ -114,7 +114,7 @@ class NewsManager {
         }
     }
 
-    static String fetchNickname() {
+    private static String fetchNickname() {
         if (isDisconnected()) return "";
         try {
             InputStream url = new URL(urlBase + "?getNickname&user=" + username).openStream();

@@ -18,7 +18,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".NewsViewActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:theme="@style/AppTheme.PopUp"/>
         <activity android:name=".SettingsActivity"
