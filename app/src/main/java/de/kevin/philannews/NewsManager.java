@@ -2,14 +2,21 @@ package de.kevin.philannews;
 
 import android.annotation.SuppressLint;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.OkHttpClient;
 
 class NewsManager {
 
@@ -137,6 +144,27 @@ class NewsManager {
             e.printStackTrace();
         }
         refreshUser();
+    }
+
+    static void sendNotification(String title, String message) {
+        JSONObject json = new JSONObject();
+//        json.put("someKey", "someValue");
+
+        try {
+            URL url = new URL("https://fcm.googleapis.com/fcm/send\n");
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(false);
+            conn.setRequestProperty ("Authorization", "");
+
+            OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+
+            writer.write("");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
