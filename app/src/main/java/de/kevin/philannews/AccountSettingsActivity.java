@@ -1,5 +1,6 @@
 package de.kevin.philannews;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class AccountSettingsActivity extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         EditText nickname = findViewById(R.id.settingsNewNickname);
         Button changePassword = findViewById(R.id.changePasswordButton);
         Button changeNickname = findViewById(R.id.settingsChangeNickButton);
+        Switch registeredSwitch = findViewById(R.id.registeredSwitch);
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -106,6 +109,11 @@ public class AccountSettingsActivity extends AppCompatActivity {
             login.setEnabled(true);
             finish();
         });
+
+        SharedPreferences preferences = getSharedPreferences("settings", MODE_PRIVATE);
+        registeredSwitch.setChecked(preferences.getBoolean("notifyAdmin", false));
+
+        registeredSwitch.setOnClickListener(v -> preferences.edit().putBoolean("notifyAdmin", registeredSwitch.isChecked()).apply());
     }
 
 }

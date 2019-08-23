@@ -134,4 +134,44 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="417dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="#00CECECE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView3">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00686868">
+
+            <TextView
+                android:id="@+id/othersTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Anderes"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Switch
+                android:id="@+id/registeredSwitch"
+                android:layout_width="257dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="8dp"
+                android:text="Spezielle Nachrichten"
+                app:layout_constraintEnd_toEndOf="@+id/othersTitle"
+                app:layout_constraintStart_toStartOf="@+id/othersTitle"
+                app:layout_constraintTop_toBottomOf="@+id/othersTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

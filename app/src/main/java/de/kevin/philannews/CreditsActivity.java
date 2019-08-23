@@ -17,7 +17,7 @@ public class CreditsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (getIntent().getAction() != null && getIntent().getAction().equals("loadApp")){
             setContentView(R.layout.activity_loading);
-            Executors.newSingleThreadScheduledExecutor().schedule(this::finish, 5, TimeUnit.SECONDS);
+            Executors.newSingleThreadScheduledExecutor().schedule(this::finish, 3, TimeUnit.SECONDS);
         } else {
             setContentView(R.layout.activity_credits);
             TextView version = findViewById(R.id.creditsAppVersion);

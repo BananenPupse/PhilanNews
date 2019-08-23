@@ -49,16 +49,16 @@
         app:layout_constraintStart_toStartOf="@id/newSummary"
         app:layout_constraintTop_toBottomOf="@+id/newSummary" />
 
-    <Button
-        android:id="@+id/newButton"
-        android:layout_width="353dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="64dp"
-        android:lines="3"
-        android:text="News veröffentlichen"
-        app:layout_constraintEnd_toEndOf="@+id/newContent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/newContent"
-        app:layout_constraintTop_toBottomOf="@+id/newContent" />
+  <Button
+      android:id="@+id/newButton"
+      android:layout_width="353dp"
+      android:layout_height="56dp"
+      android:layout_marginTop="64dp"
+      android:lines="3"
+      android:text="News veröffentlichen"
+      app:layout_constraintEnd_toEndOf="@+id/newContent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="@+id/newContent"
+      app:layout_constraintTop_toBottomOf="@+id/newContent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

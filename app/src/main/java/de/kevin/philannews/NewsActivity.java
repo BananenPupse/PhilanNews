@@ -1,8 +1,12 @@
 package de.kevin.philannews;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,11 +35,13 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class NewsActivity extends AppCompatActivity {
 
     private static NewsActivity newsActivity;
     private Menu menu;
+    private long refreshed;
 
     public Menu getMenu() {
         return menu;
@@ -62,9 +69,17 @@ public class NewsActivity extends AppCompatActivity {
             if (NewsManager.isValidUser()) startActivity(new Intent(newsActivity, CreateNewsActivity.class));
         });
 
+        fab.setLongClickable(true);
+
+        fab.setOnLongClickListener(v -> {
+            startActivity(new Intent(this, CreateNotificationActivity.class));
+            return false;
+        });
+
+        NewsManager.configureRemoteConfig();
+
         FloatingActionButton refreshFab = findViewById(R.id.refresh);
         refreshFab.setOnClickListener(this::refreshNews);
-        refreshNews();
 
         Intent intent = new Intent(this, CreditsActivity.class);
         intent.setAction("loadApp");
@@ -76,6 +91,11 @@ public class NewsActivity extends AppCompatActivity {
         } else {
             updateSubscription(preferences);
         }
+        if (preferences.contains("notifyAdmin")) {
+            updateSubscriptionAdmin(preferences);
+        }
+
+        createNotificationChannel();
     }
 
     private void refreshNews(View view) {
@@ -123,13 +143,17 @@ public class NewsActivity extends AppCompatActivity {
     }
 
     public void refreshNews() {
-        NewsManager.refreshUser();
-        {
-            ListView listView = findViewById(R.id.listView);
-            List<NewsAdapter.News> news = new ArrayList<>();
-            for (String[] strs : getNews())
-                news.add(new NewsAdapter.News(strs[0], strs[1], strs[2], strs[3], strs[4], strs[5]));
-            listView.setAdapter(new NewsAdapter(this, news));
+        long current = System.currentTimeMillis();
+        if (refreshed == 0 || current - refreshed > TimeUnit.SECONDS.toMillis(5)) {
+            NewsManager.refreshUser();
+            {
+                ListView listView = findViewById(R.id.listView);
+                List<NewsAdapter.News> news = new ArrayList<>();
+                for (String[] strs : getNews())
+                    news.add(new NewsAdapter.News(strs[0], strs[1], strs[2], strs[3], strs[4], strs[5]));
+                listView.setAdapter(new NewsAdapter(this, news));
+            }
+            refreshed = current;
         }
     }
 
@@ -205,4 +229,37 @@ public class NewsActivity extends AppCompatActivity {
         else
             FirebaseMessaging.getInstance().unsubscribeFromTopic("global");
     }
+
+    public void updateSubscriptionAdmin(SharedPreferences preferences) {
+        if (preferences.getBoolean("notifyAdmin", false))
+            FirebaseMessaging.getInstance().subscribeToTopic("registered");
+        else
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("registered");
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "News";
+            String description = "Benachrichtigt dich bei News";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel("philanNewsId", name, importance);
+            channel.setDescription(description);
+            channel.enableLights(true);
+            channel.enableVibration(true);
+            channel.setLightColor(Color.GREEN);
+            channel.setVibrationPattern(new long[] {
+                    500,
+                    500,
+                    500,
+                    500,
+                    500
+            });
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.setImportance(NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 }

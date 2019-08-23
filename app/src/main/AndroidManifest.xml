@@ -67,6 +67,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CreateNotificationActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

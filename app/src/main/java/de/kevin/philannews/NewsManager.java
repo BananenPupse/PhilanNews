@@ -2,21 +2,20 @@ package de.kevin.philannews;
 
 import android.annotation.SuppressLint;
 
-import org.json.JSONObject;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import okhttp3.OkHttpClient;
 
 class NewsManager {
 
@@ -37,6 +36,23 @@ class NewsManager {
             return false;
         }
     } */
+
+    static void configureRemoteConfig() {
+        if (isDisconnected()) return;
+        FirebaseRemoteConfig frc = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .setFetchTimeoutInSeconds(10)
+                .build();
+        frc.setConfigSettingsAsync(configSettings);
+        frc.setDefaults(R.xml.remote_config_defaults);
+        frc.fetchAndActivate().addOnCompleteListener(task -> updateURLBase(frc));
+    }
+
+    private static void updateURLBase(FirebaseRemoteConfig frc) {
+        urlBase = frc.getString("newsURL");
+        NewsActivity.getNewsActivity().refreshNews();
+    }
 
     static boolean checkCredentials(String name, String password) {
         if (isDisconnected()) return false;
@@ -146,22 +162,12 @@ class NewsManager {
         refreshUser();
     }
 
-    static void sendNotification(String title, String message) {
-        JSONObject json = new JSONObject();
-//        json.put("someKey", "someValue");
-
+    static void sendNotification(String topic, String message) {
+        if (isDisconnected()) return;
+        if (!validUser) return;
         try {
-            URL url = new URL("https://fcm.googleapis.com/fcm/send\n");
-
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(false);
-            conn.setRequestProperty ("Authorization", "");
-
-            OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-
-            writer.write("");
-            writer.flush();
-            writer.close();
+            InputStream url = new URL(urlBase + "?sendNotification&user=" + username + "&password=" + password + "&topic=" + topic + "&message=" + message).openStream();
+            url.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
